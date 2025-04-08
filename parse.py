@@ -2,7 +2,7 @@ import geopandas as gpd
 import pandas as pd
 import matplotlib.pyplot as plt
 from shapely.geometry import Point
-
+from dataclasses import dataclass
 # from data/places.txt
 places = [
     (22052, 'Decatur'),
@@ -29,19 +29,26 @@ place_geos = [
 
 stops_df = pd.read_csv('data/google_transit/stops.txt')
 
-# for each stop, check if the [stop_lon, stop_lat] is within any of the four geoids
-stops_count = dict()
+# results
+@dataclass
+class Place:
+    total_stops: int
+    num_wheelchair_stops: int
+
+places = dict()
+
 for index, row in stops_df.iterrows():
     stop_lon = row['stop_lon']
     stop_lat = row['stop_lat']
     for (place, name) in place_geos:
         if any(place.geometry.contains(Point(stop_lon, stop_lat))):
-            stops_count[name] = stops_count.get(name, 0) + 1
+            places[name] = places.get(name, Place(0, 0))
+            places[name].total_stops += 1
+            if row['wheelchair_boarding'] == 1:
+                places[name].num_wheelchair_stops += 1
 
-print(stops_count)
-
-# write the stops_count to a csv
+# write to csv
 with open('data/results.csv', 'w') as f:
-    f.write("Place,Number of Stops\n")
-    for name, count in stops_count.items():
-        f.write(f"{name},{count}\n")
+    f.write("Place,Number of Stops,Number of Wheelchair Stops\n")
+    for name, place in places.items():
+        f.write(f"{name},{place.total_stops},{place.num_wheelchair_stops}\n")

@@ -1,5 +1,5 @@
-Place,Number of Stops
-Decatur,149
-North Druid Hills,106
-North Decatur,104
-Druid Hills,57
+Place,Number of Stops,Number of Wheelchair Stops
+Decatur,149,126
+North Druid Hills,106,63
+North Decatur,104,68
+Druid Hills,57,37
