@@ -22,11 +22,6 @@ place_geos = [
     for place_id, place_name in places
 ]
 
-# plot each place
-# for place in places:
-#     place.plot()
-# plt.show()
-
 stops_df = pd.read_csv('data/google_transit/stops.txt')
 
 # results
