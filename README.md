@@ -5,6 +5,8 @@
 
 `data/places.txt` is from [Census.gov](https://www2.census.gov/geo/docs/reference/codes/PLACElist.txt). It's just to map place names to IDs.
 
-`data/results.csv` is the output of `parse.py`. still a WIP but right now shows stops in each area specified
+`data/results.csv` is the output of `parse.py`. It is the summarized data: right now we are calculating thr number of stops and the number of wheelchair-accessible stops.
+
+maps are available under `data/places/`
 
 to run the script do `pip install -r requirements.txt` and `python parse.py`. the main libraries used are geopandas and pandas. you can also plot the shapes (looks pretty cool) with matplotlib.
